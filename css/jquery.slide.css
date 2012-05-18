@@ -1,0 +1,54 @@
+/*
+ *  Project: jQuery Slide
+ *  Description: Plugin JS para criar um slide simples de varias imagens
+ *  Author: Luís Dalmolin <luis@escape.ppg.br> 
+ *  License: MIT 
+ *  Version: 1.2
+ */ 
+
+.slide-fixo {
+    width: 100%;
+    height: 100%;
+    position: relative; }
+
+    /* slide overflow */ 
+    .slide-overflow {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; }
+
+    /* runner */ 
+    .slide-fixo .slide-runner {
+        position: absolute;
+        left: 0;
+        top: 0; }
+
+    /* navegação */ 
+    .slide-nav-left, .slide-nav-right {
+        cursor: pointer;
+        position: absolute;
+        width: 100%;
+        height: 20px;
+        background: url(../_img/plugins/slide/nav-pointers.png) no-repeat center top;
+        opacity: 0.5;
+        -moz-opacity: 0.5;
+        filter:alpha(opacity=5); }
+        .slide-nav-left:hover, .slide-nav-right:hover {
+            opacity: 1.0;
+            -moz-opacity: 1.0;
+            filter:alpha(opacity=100); }
+
+            .slide-nav-end-navigation:hover {
+                opacity: 0.5;
+                -moz-opacity: 0.5;
+                filter:alpha(opacity=5); }
+
+        .slide-vertical .slide-nav-left {
+            left: -1px;
+            top: -20px; }
+        .slide-vertical .slide-nav-right {
+            background-position: center bottom;
+            left: -1px;
+            bottom: -18px; }
+
