@@ -3,7 +3,7 @@
  *  Description: Plugin JS para criar um slide simples de varias imagens
  *  Author: Luís Dalmolin <luis@escape.ppg.br> 
  *  License: MIT 
- *  Version: 1.2
+ *  Version: 1.2.1 
  */ 
 
 ;(function ( $, window, undefined ) {
@@ -100,6 +100,13 @@
                     self.options.sizeTotal = ( size + margin ) - self.options.size;
                     self.options.sizeTotal = self.options.sizeTotal / self.options.columns;
                 }
+
+                // removendo a ultima margem top ou bottom do ultimo elemento 
+                if( self.options.removeLastMargin ) {
+                    self.options.$item
+                    .slice( (self.options.totalItens - 1), self.options.totalItens )
+                    .css(self.options.sizeTypes.margin, '0px');
+                }
             }
 
             /* tamanho do runner */ 
@@ -127,11 +134,19 @@
             var self = this;
 
             /* nav right ou top */ 
-            self.options.$navRight.on('mouseover', function() {
-                self.options.$runner.stop().animate({
-                    'top' : '-' + self.options.sizeTotal + 'px'
-                }, self.timeLeft('right') );
-            });
+            if( self.options.type == 'horizontal' ) {
+                self.options.$navRight.on('mouseover', function() {
+                    self.options.$runner.stop().animate({
+                        'left' : '-' + self.options.sizeTotal + 'px'
+                    }, self.timeLeft('right') );
+                });
+            } else {
+                self.options.$navRight.on('mouseover', function() {
+                    self.options.$runner.stop().animate({
+                        'top' : '-' + self.options.sizeTotal + 'px'
+                    }, self.timeLeft('right') );
+                });
+            }
 
             /* mouse right leave */ 
             self.options.$navRight.on('mouseleave', function() {
@@ -141,11 +156,19 @@
             });
 
             /* nav left, ou bottom */ 
-            self.options.$navLeft.on('mouseover', function() {
-                self.options.$runner.stop().animate({
-                    'top' : '0px'
-                }, self.timeLeft('left') );
-            });
+            if( self.options.type == 'horizontal' ) {
+                self.options.$navLeft.on('mouseover', function() {
+                    self.options.$runner.stop().animate({
+                        'left' : '0px'
+                    }, self.timeLeft('left') );
+                });
+            } else {
+                self.options.$navLeft.on('mouseover', function() {
+                    self.options.$runner.stop().animate({
+                        'top' : '0px'
+                    }, self.timeLeft('left') );
+                });
+            }
 
             /* mouse left leave */ 
             self.options.$navLeft.on('mouseleave', function() {
@@ -230,27 +253,28 @@
 
     /* defaults */ 
     $.fn.slide.options = {
-        $fixo          : null, 
-        $overflow      : 'slide-overflow', 
-        $runner        : 'slide-runner', 
-        $navLeft       : 'slide-nav-left', 
-        $navRight      : 'slide-nav-right', 
-        $item          : '.slide-item', 
-        totalItens     : 0, 
-        columns        : 1, 
-        defaultSizes   : true, 
+        $fixo            : null, 
+        $overflow        : 'slide-overflow', 
+        $runner          : 'slide-runner', 
+        $navLeft         : 'slide-nav-left', 
+        $navRight        : 'slide-nav-right', 
+        $item            : '.slide-item', 
+        totalItens       : 0, 
+        columns          : 1, 
+        defaultSizes     : true, 
+        removeLastMargin : true, 
         type           : 'horizontal', 
         sizeTypes      : {
             'nav'    : 'top', 
             'type'   : 'height', 
             'margin' : 'margin-bottom'
         }, 
-        classe         : {
+        classe           : {
             'endNavigation' : 'slide-nav-end-navigation'
         }, 
-        size           : null, 
-        sizeTotal      : null, 
-        sizeTotalAjust : 0, 
-        speed          : 60
+        size             : null, 
+        sizeTotal        : null, 
+        sizeTotalAjust   : 0, 
+        speed            : 60
     }
 }(jQuery, window));

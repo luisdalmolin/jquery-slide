@@ -1,3 +1,3 @@
-# jQuery Slide 
+# jQuery Slide - 1.2.1
 
-## Em desenvolvimento 
+## Docs e exemplos em desenvolvimento 
