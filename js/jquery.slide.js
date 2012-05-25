@@ -3,7 +3,7 @@
  *  Description: Plugin JS para criar um slide simples de varias imagens
  *  Author: Luís Dalmolin <luis@escape.ppg.br> 
  *  License: MIT 
- *  Version: 1.2.1 
+ *  Version: 1.2.2
  */ 
 
 ;(function ( $, window, undefined ) {
@@ -56,7 +56,7 @@
             self.options.$runner.appendTo( self.options.$overflow );
             self.options.$item.appendTo( self.options.$runner );
 
-            self.options.$navLeft = $('<a class="'+self.options.$navLeft+'"></a>');
+            self.options.$navLeft = $('<a class="'+self.options.$navLeft+' '+self.options.classe.endNavigation+'"></a>');
             self.options.$navLeft.appendTo( self.options.$fixo );
             self.options.$navLeft.addClass( );
 
