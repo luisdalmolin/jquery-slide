@@ -2,20 +2,57 @@
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
-        <title>jQuery Slide</title>
+        <title>jQuery Slide</title> 
+
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/jquery.slide.css" />
     </head>
     <body>
         <h1>jQuery Slide</h1>
         
-        <div id="slide" class="slide-fixo">
-            
+        <div id="slide-vertical" class="slide-fixo">
+            <img src="img/1.jpg" alt="" />
+            <img src="img/2.jpg" alt="" />
+            <img src="img/3.jpg" alt="" />
+            <img src="img/4.jpg" alt="" />
+            <img src="img/1.jpg" alt="" />
+            <img src="img/2.jpg" alt="" />
+            <img src="img/3.jpg" alt="" />
+            <img src="img/4.jpg" alt="" />
+            <img src="img/1.jpg" alt="" />
+            <img src="img/2.jpg" alt="" />
+            <img src="img/3.jpg" alt="" />
+            <img src="img/4.jpg" alt="" />
         </div><!-- #slide --> 
         
+        <div id="slide-horizontal" class="box-horizontal slide-fixo">
+            <img src="img/1.jpg" alt="" />
+            <img src="img/2.jpg" alt="" />
+            <img src="img/3.jpg" alt="" />
+            <img src="img/4.jpg" alt="" />
+            <img src="img/1.jpg" alt="" />
+            <img src="img/2.jpg" alt="" />
+            <img src="img/3.jpg" alt="" />
+            <img src="img/4.jpg" alt="" />
+            <img src="img/1.jpg" alt="" />
+            <img src="img/2.jpg" alt="" />
+            <img src="img/3.jpg" alt="" />
+            <img src="img/4.jpg" alt="" />
+        </div><!-- #slide --> 
+
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery.slide.min.js"></script>
         <script type="text/javascript">
             (function() {
-                $('#slide').slide();
+                $('#slide-vertical').slide({
+                    type  : 'vertical', 
+                    $item : 'img', 
+                    speed : 150
+                });
+
+                $('#slide-horizontal').slide({
+                    $item : 'img'
+                });
             })();
         </script>
     </body>

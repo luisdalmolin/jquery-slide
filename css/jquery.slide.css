@@ -30,7 +30,7 @@
         position: absolute;
         width: 182px;
         height: 26px;
-        background: url(../_img/plugins/slide/nav-pointers.png) no-repeat center top;
+        background: url(../img/nav-pointers.png) no-repeat center top;
         opacity: 1.0;
         -moz-opacity: 1.0;
         filter:alpha(opacity=100); }

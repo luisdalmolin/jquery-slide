@@ -1,0 +1,28 @@
+/*
+    CSS dos exemplos do Plugin jQuery Slide 
+    Author: Luís Dalmolin <luis@escape.ppg.br> 
+*/ 
+
+body {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+    margin: 2em; }
+
+
+/* box vertical */ 
+#slide-vertical {
+    float: left;
+    width: 100px;
+    height: 308px; }
+    #slide-vertical img {
+        display: block;
+        margin: 0 0 2px 0; }
+
+/* box horizontal */ 
+#slide-horizontal {
+    float: right;
+    width: 408px;
+    height: 75px; }
+    #slide-horizontal img {
+        display: inline-block;
+        margin: 0 2px 0 0; }

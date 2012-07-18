@@ -3,7 +3,7 @@
  *  Description: Plugin JS para criar um slide simples de varias imagens
  *  Author: Luís Dalmolin <luis@escape.ppg.br> 
  *  License: MIT 
- *  Version: 1.2.2
+ *  Version: 1.2.3
  */ 
 
 ;(function ( $, window, undefined ) {
@@ -76,16 +76,19 @@
                     var size   = parseInt( self.options.$item.slice(0, 1).css( self.options.sizeTypes.type ).replace('px', '') ), 
                         margin = parseInt( self.options.$item.slice(0, 1).css( self.options.sizeTypes.margin ).replace('px', '') );
 
-                    self.options.sizeTotal += ( self.options.totalItens * size );
-                    self.options.sizeTotal += ( ( self.options.totalItens * margin ) - margin );
+                    self.options.sizeTotal += ( self.options.totalItens * ( size + margin ) );
 
-                    // verificando se é impar pra adicionar na soma 
-                    if( self.options.$item.size() % self.options.columns !== 0 ) {
-                        self.options.sizeTotal += ( size + margin );
+                    // verificando se o número de itens é impar, e precisa adicionar tamanhos para completar a linha
+                    var itensLeft = self.options.$item.size() % self.options.columns;
+                    if( itensLeft !== 0 ) {
+                        self.options.sizeTotal += ( size + margin ) * ( self.options.columns - itensLeft );
                     }
 
                     // dividindo pelas colunas 
-                    self.options.sizeTotal  = self.options.sizeTotal / self.options.columns;
+                    self.options.sizeTotal = self.options.sizeTotal / self.options.columns;
+
+                    // removendo a margem final 
+                    self.options.sizeTotal -= margin;
                 } else {
                     var size   = 0, 
                         margin = 0;
