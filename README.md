@@ -1,3 +1,3 @@
 # jQuery Slide - 1.2.2
 
-## Docs e exemplos em desenvolvimento 
+[Exemplos de utilização](http://luisdalmolin.github.com/jquery-slide/)
