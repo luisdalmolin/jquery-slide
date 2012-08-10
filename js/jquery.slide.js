@@ -154,6 +154,9 @@ if( typeof Object.create !== 'function' ) {
                     }, self.timeLeft('right') );
                 });
             } else {
+                // adicionando a classe de top 
+                self.options.$navRight.addClass('slide-nav-top');
+
                 self.options.$navRight.on('mouseover', function() {
                     self.options.$runner.stop().animate({
                         'top' : '-' + self.options.sizeTotal + 'px'
@@ -176,6 +179,9 @@ if( typeof Object.create !== 'function' ) {
                     }, self.timeLeft('left') );
                 });
             } else {
+                // adicionando a classe de top 
+                self.options.$navLeft.addClass('slide-nav-bottom');
+
                 self.options.$navLeft.on('mouseover', function() {
                     self.options.$runner.stop().animate({
                         'top' : '0px'
@@ -288,6 +294,6 @@ if( typeof Object.create !== 'function' ) {
         size             : null, 
         sizeTotal        : null, 
         sizeTotalAjust   : 0, 
-        speed            : 60
+        speed            : 300
     }
 }(jQuery, window));

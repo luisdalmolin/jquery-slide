@@ -28,8 +28,8 @@
     .slide-nav-left, .slide-nav-right {
         cursor: pointer;
         position: absolute;
-        width: 182px;
-        height: 26px;
+        width: 25px;
+        height: 25px;
         background: url(../img/nav-pointers.png) no-repeat center top;
         opacity: 1.0;
         -moz-opacity: 1.0;
@@ -42,11 +42,23 @@
             .slide-fixo .slide-nav-end-navigation {
                 visibility: hidden; }
 
+        /* esquerda e direita */ 
+        .slide-horizontal .slide-nav-left {
+            background-position: left top;
+            left: -30px;
+            top: 22px; }
+        .slide-horizontal .slide-nav-right {
+            background-position: right top;
+            right: -30px;
+            top: 22px; }
+
+        /* top e bottom */ 
         .slide-vertical .slide-nav-left {
-            left: 0;
-            top: -26px; }
+            background-position: left bottom;
+            left: 38px;
+            top: -30px; }
         .slide-vertical .slide-nav-right {
-            background-position: center bottom;
-            left: 0;
-            bottom: -26px; }
+            background-position: right bottom;
+            left: 38px;
+            bottom: -30px; }
 
