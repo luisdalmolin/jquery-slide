@@ -3,8 +3,18 @@
  *  Description: Plugin JS para criar um slide simples de varias imagens
  *  Author: Luís Dalmolin <luis@escape.ppg.br> 
  *  License: MIT 
- *  Version: 1.2.3
+ *  Version: 1.2.4
  */ 
+
+// Utility
+if( typeof Object.create !== 'function' ) {
+    Object.create = function( obj ) {
+        function F() {};
+        F.prototype = obj;
+        return new F();
+    };
+}
+
 
 ;(function ( $, window, undefined ) {
     // Plugin
