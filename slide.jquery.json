@@ -1,0 +1,34 @@
+{
+  "name": "slide",
+  "title": "jQuery Slide",
+  "keywords": [
+    "jquery",
+    "slide",
+    "slider"
+  ],
+  "version": "1.3.0",
+  "author": {
+    "name": "Zeno Rocha",
+    "url": "https://github.com/zenorocha"
+  },
+  "maintainers": [
+    {
+      "name": "Luís Dalmolin",
+      "email": "luis.nh@gmail.com",
+      "url": "https://github.com/luisdalmolin"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "bugs": "https://github.com/luisdalmolin/jquery-slide/issues",
+  "homepage": "http://luisdalmolin.github.com/jquery-slide/",
+  "docs": "https://github.com/luisdalmolin/jquery-slide/#readme",
+  "download": "https://github.com/luisdalmolin/jquery-slide/archive/master.zip",
+  "dependencies": {
+    "jquery": ">=1.7"
+  }
+}
