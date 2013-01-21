@@ -3,7 +3,7 @@
  *  Description: Plugin JS para criar um slide simples de varias imagens
  *  Author: Luís Dalmolin <luis.nh@gmail.com> 
  *  License: MIT 
- *  Version: 1.3
+ *  Version: 1.3.1
  */ 
 
 // Utility
@@ -39,6 +39,7 @@ if( typeof Object.create !== 'function' ) {
 
             // fixo 
             self.options.$fixo = $( self.element );
+
             if( self.options.type == 'vertical' ) {
                 self.options.size  = self.options.$fixo.height();
             } else {
@@ -54,6 +55,8 @@ if( typeof Object.create !== 'function' ) {
 
             // criando os elementos 
             self.createElements();
+
+            self.options.$fixo.css('overflow', 'visible');
         }, 
 
         createElements : function() {
