@@ -3,7 +3,7 @@
  *  Description: Plugin JS para criar um slide simples de varias imagens
  *  Author: Luís Dalmolin <luis.nh@gmail.com> 
  *  License: MIT 
- *  Version: 1.3.1
+ *  Version: 1.3
  */ 
 
 // Utility
@@ -39,7 +39,6 @@ if( typeof Object.create !== 'function' ) {
 
             // fixo 
             self.options.$fixo = $( self.element );
-
             if( self.options.type == 'vertical' ) {
                 self.options.size  = self.options.$fixo.height();
             } else {
@@ -55,8 +54,6 @@ if( typeof Object.create !== 'function' ) {
 
             // criando os elementos 
             self.createElements();
-
-            self.options.$fixo.css('overflow', 'visible');
         }, 
 
         createElements : function() {
@@ -88,9 +85,9 @@ if( typeof Object.create !== 'function' ) {
 
                 if( self.options.defaultSizes ) 
                 {
-                    var size   = parseInt( self.options.$item.slice(0, 1).css( self.options.sizeTypes.type ).replace('px', '') ), 
-                        margin = parseInt( self.options.$item.slice(0, 1).css( self.options.sizeTypes.margin ).replace('px', '') );
-
+                    var size   = parseInt( self.options.$item.slice(0, 1).outerWidth() )
+                      , margin = parseInt( self.options.$item.slice(0, 1).css( self.options.sizeTypes.margin ).replace('px', '') );
+                    
                     self.options.sizeTotal += ( self.options.totalItens * ( size + margin ) );
 
                     // verificando se o número de itens é impar, e precisa adicionar tamanhos para completar a linha
@@ -118,7 +115,7 @@ if( typeof Object.create !== 'function' ) {
                     self.options.$item.each(function() {
                         var $this = $this;
 
-                        size   += parseInt( $this.slice(0, 1).css( self.options.sizeTypes.type ).replace('px', '') ), 
+                        size   += parseInt( $this.slice(0, 1).outerWidth() ), 
                         margin += parseInt( $this.slice(0, 1).css( self.options.sizeTypes.margin ).replace('px', '') );
                     });
 
@@ -133,6 +130,7 @@ if( typeof Object.create !== 'function' ) {
                     .slice( (self.options.totalItens - 1), self.options.totalItens )
                     .css(self.options.sizeTypes.margin, '0px');
                 }
+
             }
 
             // tamanho do runner 
