@@ -42,15 +42,18 @@
             .slide-fixo .slide-nav-end-navigation {
                 visibility: hidden; }
 
-        /* esquerda e direita */ 
-        .slide-horizontal .slide-nav-left {
-            background-position: left top;
-            left: -30px;
-            top: 22px; }
-        .slide-horizontal .slide-nav-right {
-            background-position: right top;
-            right: -30px;
-            top: 22px; }
+        .slide-vertical,
+        .slide-horizontal {
+            position: relative;
+        }
+            .slide-horizontal .slide-nav-left {
+                background-position: left top;
+                left: -30px;
+                top: 22px; }
+            .slide-horizontal .slide-nav-right {
+                background-position: right top;
+                right: -30px;
+                top: 22px; }
 
         /* top e bottom */ 
         .slide-vertical .slide-nav-left {
