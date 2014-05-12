@@ -1,15 +1,15 @@
 /*
  *  Project: jQuery Slide
  *  Description: Plugin JS para criar um slide simples de varias imagens
- *  Author: Luís Dalmolin <luis.nh@gmail.com> 
- *  License: MIT 
+ *  Author: Luís Dalmolin <luis.nh@gmail.com>
+ *  License: MIT
  *  Version: 1.3
- */ 
+ */
 
 // Utility
 if (typeof Object.create !== 'function') {
     Object.create = function(obj) {
-        function F() {};
+        function F() {}
         F.prototype = obj;
         return new F();
     };
@@ -19,7 +19,7 @@ if (typeof Object.create !== 'function') {
 ;(function ($, window, undefined) {
     // Plugin
     var Slide = {
-        // init do plugin 
+        // init do plugin
         init : function(options, element) {
             var self     = this;
 
@@ -30,31 +30,31 @@ if (typeof Object.create !== 'function') {
             self.getSizes();
             self.initNavigation();
 
-            // calculando o tempo 
+            // calculando o tempo
             self.options.speed = self.options.speed * self.options.totalItens;
-        }, 
+        },
 
         fetchElements: function() {
             var self = this;
 
-            // fixo 
+            // fixo
             self.options.$fixo = $(self.element);
-            if (self.options.type == 'vertical') {
+            if (self.options.type === 'vertical') {
                 self.options.size  = self.options.$fixo.height();
             } else {
                 self.options.size  = self.options.$fixo.width();
             }
 
-            // itens 
+            // itens
             self.options.$item      = self.options.$fixo.find(self.options.$item);
             self.options.totalItens = parseInt(self.options.$item.size());
 
-            // classes adicionais 
+            // classes adicionais
             self.options.$fixo.addClass('slide-' + self.options.type);
 
-            // criando os elementos 
+            // criando os elementos
             self.createElements();
-        }, 
+        },
 
         createElements: function() {
             var self = this;
@@ -72,20 +72,21 @@ if (typeof Object.create !== 'function') {
 
             self.options.$navRight = $('<a class="'+self.options.$navRight+'"></a>');
             self.options.$navRight.appendTo(self.options.$fixo);
-        }, 
+        },
 
         getSizes: function() {
-            var self = this;
+            var self, size, margin;
+            self = this;
 
             if (self.options.sizeTotal === null) {
-                self.options.sizeTypes.type   = self.options.type == 'horizontal' ? 'width' : 'height';
-                self.options.sizeTypes.nav    = self.options.type == 'horizontal' ? 'left' : 'top';
-                self.options.sizeTypes.margin = self.options.type == 'horizontal' ? self.options.margin.horizontal : self.options.margin.vertical;
+                self.options.sizeTypes.type   = self.options.type === 'horizontal' ? 'width' : 'height';
+                self.options.sizeTypes.nav    = self.options.type === 'horizontal' ? 'left' : 'top';
+                self.options.sizeTypes.margin = self.options.type === 'horizontal' ? self.options.margin.horizontal : self.options.margin.vertical;
 
                 if (self.options.defaultSizes) {
-                    var size   = self.options.type == 'horizontal' ? parseInt(self.options.$item.slice(0, 1).outerWidth()) : parseInt(self.options.$item.slice(0, 1).outerHeight());
-                      , margin = parseInt(self.options.$item.slice(0, 1).css(self.options.sizeTypes.margin).replace('px', ''));
-                    
+                    size   = self.options.type === 'horizontal' ? parseInt(self.options.$item.slice(0, 1).outerWidth()) : parseInt(self.options.$item.slice(0, 1).outerHeight());
+                    margin = parseInt(self.options.$item.slice(0, 1).css(self.options.sizeTypes.margin).replace('px', ''));
+
                     self.options.sizeTotal += (self.options.totalItens * (size + margin));
 
                     // verificando se o número de itens é impar, e precisa adicionar tamanhos para completar a linha
@@ -94,22 +95,22 @@ if (typeof Object.create !== 'function') {
                         self.options.sizeTotal += (size + margin) * (self.options.columns - itensLeft);
                     }
 
-                    // dividindo pelas colunas 
+                    // dividindo pelas colunas
                     self.options.sizeTotal  = self.options.sizeTotal / self.options.columns;
                     self.options.sizeTotal += self.options.sizeTotalAjust;
 
-                    // removendo a margem final 
+                    // removendo a margem final
                     if (self.options.removeLastMargin) {
                         self.options.sizeTotal -= margin;
                     }
                 } else {
-                    var size   = 0, 
-                        margin = 0;
+                    size   = 0;
+                    margin = 0;
 
                     self.options.$item.each(function() {
                         var $this = $this;
 
-                        size   += parseInt($this.slice(0, 1).outerWidth()), 
+                        size   += parseInt($this.slice(0, 1).outerWidth()),
                         margin += parseInt($this.slice(0, 1).css(self.options.sizeTypes.margin).replace('px', ''));
                     });
 
@@ -117,8 +118,8 @@ if (typeof Object.create !== 'function') {
                     self.options.sizeTotal = self.options.sizeTotal / self.options.columns;
                 }
 
-                // removendo a ultima margem top ou bottom do ultimo elemento 
-                if (self.options.removeLastMargin === true) 
+                // removendo a ultima margem top ou bottom do ultimo elemento
+                if (self.options.removeLastMargin === true)
                 {
                     self.options.$item
                     .slice((self.options.totalItens - 1), self.options.totalItens)
@@ -127,45 +128,45 @@ if (typeof Object.create !== 'function') {
 
             }
 
-            // tamanho do runner 
-            if (self.options.sizeTypes.type == 'height') 
+            // tamanho do runner
+            if (self.options.sizeTypes.type === 'height')
             {
                 self.options.$runner.css({
                     'height': self.options.sizeTotal + 'px'
                 });
-            } 
-            else 
+            }
+            else
             {
                 self.options.$runner.css({
                     'width': self.options.sizeTotal + 'px'
                 });
             }
 
-            // escondendo as setas se necessario 
+            // escondendo as setas se necessario
             if (self.options.sizeTotal < self.options.size) {
                 self.options.$navLeft.hide();
                 self.options.$navRight.hide();
             }
 
-            // descontando o tamanho do box 
+            // descontando o tamanho do box
             self.options.sizeTotal = self.options.sizeTotal - self.options.size;
-        }, 
+        },
 
         initNavigation: function() {
             var self = this;
 
-            // nav right ou top 
-            if (self.options.type == 'horizontal') 
+            // nav right ou top
+            if (self.options.type === 'horizontal')
             {
                 self.options.$navRight.on('mouseover', function() {
                     self.options.$runner.stop().animate({
                         'left': '-' + self.options.sizeTotal + 'px'
                     }, self.timeLeft('right'));
                 });
-            } 
-            else 
+            }
+            else
             {
-                // adicionando a classe de top 
+                // adicionando a classe de top
                 self.options.$navRight.addClass('slide-nav-top');
 
                 self.options.$navRight.on('mouseover', function() {
@@ -175,22 +176,22 @@ if (typeof Object.create !== 'function') {
                 });
             }
 
-            // mouse right leave 
+            // mouse right leave
             self.options.$navRight.on('mouseleave', function() {
                 self.options.$runner.stop();
 
                 self.addClassesEndNavigation('right');
             });
 
-            // nav left, ou bottom 
-            if (self.options.type == 'horizontal') {
+            // nav left, ou bottom
+            if (self.options.type === 'horizontal') {
                 self.options.$navLeft.on('mouseover', function() {
                     self.options.$runner.stop().animate({
                         'left': '0px'
                     }, self.timeLeft('left'));
                 });
             } else {
-                // adicionando a classe de top 
+                // adicionando a classe de top
                 self.options.$navLeft.addClass('slide-nav-bottom');
 
                 self.options.$navLeft.on('mouseover', function() {
@@ -200,46 +201,46 @@ if (typeof Object.create !== 'function') {
                 });
             }
 
-            // mouse left leave 
+            // mouse left leave
             self.options.$navLeft.on('mouseleave', function() {
                 self.options.$runner.stop();
 
                 self.addClassesEndNavigation('left');
             });
-        }, 
+        },
 
         timeLeft: function(direction) {
-            var 
-                self         = this, 
-                leftTotal    = parseInt(self.options.sizeTotal), 
-                leftRestante = self.getWayLeft(), 
+            var
+                self         = this,
+                leftTotal    = parseInt(self.options.sizeTotal),
+                leftRestante = self.getWayLeft(),
                 tempo        = parseInt(self.options.speed);
-            
-            // transforma restante pra positivo 
+
+            // transforma restante pra positivo
             leftRestante *= leftRestante < 0 ? -1 : 1;
-            leftRestante  = direction == 'right' ? (leftTotal - leftRestante) : leftRestante;
-            
+            leftRestante  = direction === 'right' ? (leftTotal - leftRestante) : leftRestante;
+
             return (leftRestante * tempo) / leftTotal;
-        }, 
+        },
 
         getWayLeft: function() {
             var self = this;
 
-            return parseInt(self.options.$runner.css(self.options.sizeTypes.nav).replace('px', ''))
-        }, 
+            return parseInt(self.options.$runner.css(self.options.sizeTypes.nav).replace('px', ''));
+        },
 
         addClassesEndNavigation: function(direction) {
-            var self           = this, 
+            var self           = this,
                 leftPercorrido = self.getWayLeft();
 
             if (leftPercorrido < 0) {
                 leftPercorrido = leftPercorrido * -1;
             }
 
-            // right 
-            if (direction == 'right') 
+            // right
+            if (direction === 'right')
             {
-                // remove do left 
+                // remove do left
                 self.options.$navLeft.removeClass( self.options.classe.endNavigation );
 
                 if (leftPercorrido >= self.options.sizeTotal) {
@@ -248,16 +249,16 @@ if (typeof Object.create !== 'function') {
                     self.options.$navRight.removeClass(self.options.classe.endNavigation);
                 }
             } else {
-                // remove do right 
+                // remove do right
                 self.options.$navRight.removeClass(self.options.classe.endNavigation);
-                
+
                 if (leftPercorrido <= 0) {
                     self.options.$navLeft.addClass(self.options.classe.endNavigation);
                 } else {
                     self.options.$navLeft.removeClass(self.options.classe.endNavigation);
                 }
             }
-        }, 
+        },
 
         removerElementos: function() {
             var self = this;
@@ -269,7 +270,7 @@ if (typeof Object.create !== 'function') {
             self.options.$item.remove();
 
             self.options = $.fn.slide.options;
-        }, 
+        },
 
         reset: function() {
             var self, itens, $fixo;
@@ -281,46 +282,46 @@ if (typeof Object.create !== 'function') {
             self.removerElementos();
             $fixo.html(itens);
         }
-    }
+    };
 
     $.fn.slide = function(options) {
         return this.each(function() {
             var slide = Object.create(Slide);
-            
+
             slide.init(options, this);
 
             $.data(this, 'slide', slide);
         });
     };
 
-    // defaults 
+    // defaults
     $.fn.slide.options = {
-        $fixo            : null, 
-        $overflow        : 'slide-overflow', 
-        $runner          : 'slide-runner', 
-        $navLeft         : 'slide-nav-left', 
-        $navRight        : 'slide-nav-right', 
-        $item            : '.slide-item', 
-        totalItens       : 0, 
-        columns          : 1, 
-        defaultSizes     : true, 
-        removeLastMargin : true, 
-        type           : 'horizontal', 
+        $fixo            : null,
+        $overflow        : 'slide-overflow',
+        $runner          : 'slide-runner',
+        $navLeft         : 'slide-nav-left',
+        $navRight        : 'slide-nav-right',
+        $item            : '.slide-item',
+        totalItens       : 0,
+        columns          : 1,
+        defaultSizes     : true,
+        removeLastMargin : true,
+        type           : 'horizontal',
         sizeTypes      : {
-            nav    : 'top', 
-            type   : 'height', 
+            nav    : 'top',
+            type   : 'height',
             margin : 'margin-bottom'
-        }, 
+        },
         classe           : {
             'endNavigation' : 'slide-nav-end-navigation'
-        }, 
+        },
         margin           : {
-            vertical   : 'margin-bottom', 
+            vertical   : 'margin-bottom',
             horizontal : 'margin-right'
-        }, 
-        size             : null, 
-        sizeTotal        : null, 
-        sizeTotalAjust   : 0, 
+        },
+        size             : null,
+        sizeTotal        : null,
+        sizeTotalAjust   : 0,
         speed            : 200
-    }
+    };
 }(jQuery, window));

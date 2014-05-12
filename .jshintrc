@@ -1,0 +1,12 @@
+{
+    "expr": true,
+    "curly": true,
+    "eqnull": true,
+    "eqeqeq": true,
+    "undef": true,
+    "globals": {
+        "jQuery": true,
+        "window": true,
+        "module": true
+    }
+}

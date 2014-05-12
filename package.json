@@ -1,0 +1,9 @@
+{
+    "devDependencies" : {
+        "grunt-contrib-jshint" : "*",
+        "grunt-contrib-uglify" : "*",
+        "grunt-contrib-watch" : "*",
+        "grunt-notify": "*",
+        "grunt" : "~0.4.4"
+    }
+}
