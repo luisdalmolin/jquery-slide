@@ -1,5 +1,17 @@
 # jQuery Slide
 
+jQuery plugin for create sliders.
+
+### Instalation
+
+Available via [bower](http://bower.io/).
+
+```bash
+$ bower install jquery-slide --save
+```
+
+### Usage
+
 ```html
 <div class="slide-fixo">
     <a href="#" style="background-image: url(/images/img-1.jpg)" class="slide-item"></a>
@@ -19,6 +31,6 @@
 </script>
 ```
 
-[Exemplos de utilização](http://luisdalmolin.github.com/jquery-slide/).
+### License
 
-Docs em breve.
+[MIT License](http://luisdalmolin.mit-license.org/) © Luis Dalmolin

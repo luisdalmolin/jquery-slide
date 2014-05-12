@@ -7,8 +7,8 @@
  */ 
 
 // Utility
-if( typeof Object.create !== 'function' ) {
-    Object.create = function( obj ) {
+if (typeof Object.create !== 'function') {
+    Object.create = function(obj) {
         function F() {};
         F.prototype = obj;
         return new F();
@@ -16,15 +16,15 @@ if( typeof Object.create !== 'function' ) {
 }
 
 
-;(function ( $, window, undefined ) {
+;(function ($, window, undefined) {
     // Plugin
     var Slide = {
         // init do plugin 
-        init : function( options, element ) {
+        init : function(options, element) {
             var self     = this;
 
             self.element = element;
-            self.options = $.extend( {}, $.fn.slide.options, options );
+            self.options = $.extend({}, $.fn.slide.options, options);
 
             self.fetchElements();
             self.getSizes();
@@ -34,20 +34,20 @@ if( typeof Object.create !== 'function' ) {
             self.options.speed = self.options.speed * self.options.totalItens;
         }, 
 
-        fetchElements : function() {
+        fetchElements: function() {
             var self = this;
 
             // fixo 
-            self.options.$fixo = $( self.element );
-            if( self.options.type == 'vertical' ) {
+            self.options.$fixo = $(self.element);
+            if (self.options.type == 'vertical') {
                 self.options.size  = self.options.$fixo.height();
             } else {
                 self.options.size  = self.options.$fixo.width();
             }
 
             // itens 
-            self.options.$item      = self.options.$fixo.find( self.options.$item );
-            self.options.totalItens = parseInt( self.options.$item.size() );
+            self.options.$item      = self.options.$fixo.find(self.options.$item);
+            self.options.totalItens = parseInt(self.options.$item.size());
 
             // classes adicionais 
             self.options.$fixo.addClass('slide-' + self.options.type);
@@ -56,45 +56,42 @@ if( typeof Object.create !== 'function' ) {
             self.createElements();
         }, 
 
-        createElements : function() {
+        createElements: function() {
             var self = this;
 
             self.options.$overflow = $('<div class="'+self.options.$overflow+'"></div>');
-            self.options.$overflow.appendTo( self.options.$fixo );
+            self.options.$overflow.appendTo(self.options.$fixo);
 
             self.options.$runner = $('<div class="'+self.options.$runner+'"></div>');
-            self.options.$runner.appendTo( self.options.$overflow );
-            self.options.$item.appendTo( self.options.$runner );
+            self.options.$runner.appendTo(self.options.$overflow);
+            self.options.$item.appendTo(self.options.$runner);
 
             self.options.$navLeft = $('<a class="'+self.options.$navLeft+' '+self.options.classe.endNavigation+'"></a>');
-            self.options.$navLeft.appendTo( self.options.$fixo );
-            self.options.$navLeft.addClass( );
+            self.options.$navLeft.appendTo(self.options.$fixo);
+            self.options.$navLeft.addClass();
 
             self.options.$navRight = $('<a class="'+self.options.$navRight+'"></a>');
-            self.options.$navRight.appendTo( self.options.$fixo );
+            self.options.$navRight.appendTo(self.options.$fixo);
         }, 
 
-        getSizes : function() {
+        getSizes: function() {
             var self = this;
 
-            if( self.options.sizeTotal === null ) 
-            {
+            if (self.options.sizeTotal === null) {
                 self.options.sizeTypes.type   = self.options.type == 'horizontal' ? 'width' : 'height';
                 self.options.sizeTypes.nav    = self.options.type == 'horizontal' ? 'left' : 'top';
                 self.options.sizeTypes.margin = self.options.type == 'horizontal' ? self.options.margin.horizontal : self.options.margin.vertical;
 
-                if( self.options.defaultSizes ) 
-                {
-                    var size   = parseInt( self.options.$item.slice(0, 1).outerWidth() )
-                      , margin = parseInt( self.options.$item.slice(0, 1).css( self.options.sizeTypes.margin ).replace('px', '') );
+                if (self.options.defaultSizes) {
+                    var size   = self.options.type == 'horizontal' ? parseInt(self.options.$item.slice(0, 1).outerWidth()) : parseInt(self.options.$item.slice(0, 1).outerHeight());
+                      , margin = parseInt(self.options.$item.slice(0, 1).css(self.options.sizeTypes.margin).replace('px', ''));
                     
-                    self.options.sizeTotal += ( self.options.totalItens * ( size + margin ) );
+                    self.options.sizeTotal += (self.options.totalItens * (size + margin));
 
                     // verificando se o número de itens é impar, e precisa adicionar tamanhos para completar a linha
                     var itensLeft = self.options.$item.size() % self.options.columns;
-                    if( itensLeft !== 0 ) 
-                    {
-                        self.options.sizeTotal += ( size + margin ) * ( self.options.columns - itensLeft );
+                    if (itensLeft !== 0) {
+                        self.options.sizeTotal += (size + margin) * (self.options.columns - itensLeft);
                     }
 
                     // dividindo pelas colunas 
@@ -102,53 +99,50 @@ if( typeof Object.create !== 'function' ) {
                     self.options.sizeTotal += self.options.sizeTotalAjust;
 
                     // removendo a margem final 
-                    if( self.options.removeLastMargin )
-                    {
+                    if (self.options.removeLastMargin) {
                         self.options.sizeTotal -= margin;
                     }
-                } 
-                else 
-                {
+                } else {
                     var size   = 0, 
                         margin = 0;
 
                     self.options.$item.each(function() {
                         var $this = $this;
 
-                        size   += parseInt( $this.slice(0, 1).outerWidth() ), 
-                        margin += parseInt( $this.slice(0, 1).css( self.options.sizeTypes.margin ).replace('px', '') );
+                        size   += parseInt($this.slice(0, 1).outerWidth()), 
+                        margin += parseInt($this.slice(0, 1).css(self.options.sizeTypes.margin).replace('px', ''));
                     });
 
-                    self.options.sizeTotal = ( size + margin ) - self.options.size;
+                    self.options.sizeTotal = (size + margin) - self.options.size;
                     self.options.sizeTotal = self.options.sizeTotal / self.options.columns;
                 }
 
                 // removendo a ultima margem top ou bottom do ultimo elemento 
-                if( self.options.removeLastMargin === true ) 
+                if (self.options.removeLastMargin === true) 
                 {
                     self.options.$item
-                    .slice( (self.options.totalItens - 1), self.options.totalItens )
+                    .slice((self.options.totalItens - 1), self.options.totalItens)
                     .css(self.options.sizeTypes.margin, '0px');
                 }
 
             }
 
             // tamanho do runner 
-            if( self.options.sizeTypes.type == 'height' ) 
+            if (self.options.sizeTypes.type == 'height') 
             {
                 self.options.$runner.css({
-                    'height' : self.options.sizeTotal + 'px'
+                    'height': self.options.sizeTotal + 'px'
                 });
             } 
             else 
             {
                 self.options.$runner.css({
-                    'width' : self.options.sizeTotal + 'px'
+                    'width': self.options.sizeTotal + 'px'
                 });
             }
 
             // escondendo as setas se necessario 
-            if( self.options.sizeTotal < self.options.size ) {
+            if (self.options.sizeTotal < self.options.size) {
                 self.options.$navLeft.hide();
                 self.options.$navRight.hide();
             }
@@ -157,16 +151,16 @@ if( typeof Object.create !== 'function' ) {
             self.options.sizeTotal = self.options.sizeTotal - self.options.size;
         }, 
 
-        initNavigation : function() {
+        initNavigation: function() {
             var self = this;
 
             // nav right ou top 
-            if( self.options.type == 'horizontal' ) 
+            if (self.options.type == 'horizontal') 
             {
                 self.options.$navRight.on('mouseover', function() {
                     self.options.$runner.stop().animate({
-                        'left' : '-' + self.options.sizeTotal + 'px'
-                    }, self.timeLeft('right') );
+                        'left': '-' + self.options.sizeTotal + 'px'
+                    }, self.timeLeft('right'));
                 });
             } 
             else 
@@ -176,8 +170,8 @@ if( typeof Object.create !== 'function' ) {
 
                 self.options.$navRight.on('mouseover', function() {
                     self.options.$runner.stop().animate({
-                        'top' : '-' + self.options.sizeTotal + 'px'
-                    }, self.timeLeft('right') );
+                        'top': '-' + self.options.sizeTotal + 'px'
+                    }, self.timeLeft('right'));
                 });
             }
 
@@ -189,11 +183,11 @@ if( typeof Object.create !== 'function' ) {
             });
 
             // nav left, ou bottom 
-            if( self.options.type == 'horizontal' ) {
+            if (self.options.type == 'horizontal') {
                 self.options.$navLeft.on('mouseover', function() {
                     self.options.$runner.stop().animate({
-                        'left' : '0px'
-                    }, self.timeLeft('left') );
+                        'left': '0px'
+                    }, self.timeLeft('left'));
                 });
             } else {
                 // adicionando a classe de top 
@@ -201,8 +195,8 @@ if( typeof Object.create !== 'function' ) {
 
                 self.options.$navLeft.on('mouseover', function() {
                     self.options.$runner.stop().animate({
-                        'top' : '0px'
-                    }, self.timeLeft('left') );
+                        'top': '0px'
+                    }, self.timeLeft('left'));
                 });
             }
 
@@ -214,58 +208,58 @@ if( typeof Object.create !== 'function' ) {
             });
         }, 
 
-        timeLeft : function( direction ) {
+        timeLeft: function(direction) {
             var 
                 self         = this, 
-                leftTotal    = parseInt( self.options.sizeTotal ), 
+                leftTotal    = parseInt(self.options.sizeTotal), 
                 leftRestante = self.getWayLeft(), 
-                tempo        = parseInt( self.options.speed );
+                tempo        = parseInt(self.options.speed);
             
             // transforma restante pra positivo 
             leftRestante *= leftRestante < 0 ? -1 : 1;
-            leftRestante  = direction == 'right' ? ( leftTotal - leftRestante ) : leftRestante;
+            leftRestante  = direction == 'right' ? (leftTotal - leftRestante) : leftRestante;
             
-            return ( leftRestante * tempo ) / leftTotal;
+            return (leftRestante * tempo) / leftTotal;
         }, 
 
-        getWayLeft : function() {
+        getWayLeft: function() {
             var self = this;
 
-            return parseInt( self.options.$runner.css( self.options.sizeTypes.nav ).replace('px', '') )
+            return parseInt(self.options.$runner.css(self.options.sizeTypes.nav).replace('px', ''))
         }, 
 
-        addClassesEndNavigation : function( direction ) {
+        addClassesEndNavigation: function(direction) {
             var self           = this, 
                 leftPercorrido = self.getWayLeft();
 
-            if( leftPercorrido < 0 ) {
+            if (leftPercorrido < 0) {
                 leftPercorrido = leftPercorrido * -1;
             }
 
             // right 
-            if( direction == 'right' ) 
+            if (direction == 'right') 
             {
                 // remove do left 
-                self.options.$navLeft.removeClass(  self.options.classe.endNavigation  );
+                self.options.$navLeft.removeClass( self.options.classe.endNavigation );
 
-                if( leftPercorrido >= self.options.sizeTotal ) {
-                    self.options.$navRight.addClass( self.options.classe.endNavigation );
+                if (leftPercorrido >= self.options.sizeTotal) {
+                    self.options.$navRight.addClass(self.options.classe.endNavigation);
                 } else {
-                    self.options.$navRight.removeClass( self.options.classe.endNavigation );
+                    self.options.$navRight.removeClass(self.options.classe.endNavigation);
                 }
             } else {
                 // remove do right 
-                self.options.$navRight.removeClass( self.options.classe.endNavigation );
+                self.options.$navRight.removeClass(self.options.classe.endNavigation);
                 
-                if( leftPercorrido <= 0 ) {
-                    self.options.$navLeft.addClass( self.options.classe.endNavigation );
+                if (leftPercorrido <= 0) {
+                    self.options.$navLeft.addClass(self.options.classe.endNavigation);
                 } else {
-                    self.options.$navLeft.removeClass( self.options.classe.endNavigation );
+                    self.options.$navLeft.removeClass(self.options.classe.endNavigation);
                 }
             }
         }, 
 
-        removerElementos : function() {
+        removerElementos: function() {
             var self = this;
 
             self.options.$runner.remove();
@@ -285,17 +279,17 @@ if( typeof Object.create !== 'function' ) {
             $fixo = self.options.$fixo;
 
             self.removerElementos();
-            $fixo.html( itens );
+            $fixo.html(itens);
         }
     }
 
-    $.fn.slide = function( options ) {
+    $.fn.slide = function(options) {
         return this.each(function() {
-            var slide = Object.create( Slide );
+            var slide = Object.create(Slide);
             
-            slide.init( options, this );
+            slide.init(options, this);
 
-            $.data( this, 'slide', slide );
+            $.data(this, 'slide', slide);
         });
     };
 
